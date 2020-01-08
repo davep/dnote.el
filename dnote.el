@@ -29,6 +29,19 @@
 
 (require 'browse-url)
 
+(defgroup dnote nil
+  "Wrapper for the dnote CLI."
+  :group 'docs
+  :link '(url-link :tag "dnote.el on GitHub"
+                   "https://github.com/davep/dnote.el")
+  :link '(url-link :tag "dnote on GitHub"
+                   "https://github.com/dnote/dnote"))
+
+(defcustom dnote-app-url "https://app.getdnote.com/"
+  "The URL of the dnote web application."
+  :type 'string
+  :group 'dnote)
+
 (defvar dnote--path nil
   "The location of the dnote CLI.")
 
@@ -111,7 +124,7 @@ This command is designed to very quickly add a one-liner to dnote."
 (defun dnote-app ()
   "Visit the dnote application on the web."
   (interactive)
-  (browse-url "https://app.getdnote.com/"))
+  (browse-url dnote-app-url))
 
 (provide 'dnote)
 
