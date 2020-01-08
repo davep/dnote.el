@@ -58,7 +58,9 @@
 This command is designed to very quickly add a one-liner to dnote."
   (interactive
    (let* ((book (completing-read "Book: " (dnote--books)))
-          (text (read-string (format "Text (for %s): " book))))
+          (text (read-string
+                 (format "Text (for %s): " book)
+                 (when (use-region-p) (buffer-substring-no-properties (region-beginning) (region-end))))))
      (list book text)))
   (dnote--add book content)
   (message "Note added to book \"%s\"." book))
