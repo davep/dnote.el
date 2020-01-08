@@ -3,7 +3,7 @@
 
 ;; Author: Dave Pearson <davep@davep.org>
 ;; Version: 0.01
-;; Keywords: {{keywords}}
+;; Keywords: docs
 ;; URL: https://github.com/davep/dnote.el
 ;; Package-Requires: ((emacs "24.3"))
 
