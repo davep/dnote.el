@@ -27,6 +27,8 @@
 
 ;;; Code:
 
+(require 'browse-url)
+
 (defvar dnote--path nil
   "The location of the dnote CLI.")
 
@@ -104,6 +106,12 @@ This command is designed to very quickly add a one-liner to dnote."
   (with-current-buffer (pop-to-buffer (format "*dnote add: %s*" book))
     (dnote-mode)
     (setq dnote--book book)))
+
+;;;###autoload
+(defun dnote-app ()
+  "Visit the dnote application on the web."
+  (interactive)
+  (browse-url "https://app.getdnote.com/"))
 
 (provide 'dnote)
 
