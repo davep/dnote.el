@@ -94,7 +94,8 @@ This command is designed to very quickly add a one-liner to dnote."
   "Mode map for `dnote-mode'.")
 
 ;;;###autoload
-(define-derived-mode dnote-mode text-mode "dnote")
+(define-derived-mode dnote-mode text-mode "dnote"
+  "Major mode for editing a dnote note.")
 
 ;;;###autoload
 (defun dnote-add (book)
