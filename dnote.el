@@ -30,6 +30,9 @@
 (defvar dnote--path nil
   "The location of the dnote CLI.")
 
+(defvar-local dnote--book nil
+  "The book the current buffer relates to.")
+
 (defun dnote--installed-p ()
   "Is dnote installed?"
   (unless (get 'dnote--path 'checked)
@@ -51,19 +54,55 @@
   "Add CONTENT to BOOK in dnote."
   (dnote--cmd (format "add %s --content %s" book (shell-quote-argument content))))
 
+(defun dnote--read-book ()
+  "Prompt the user for a dnote book name.
+
+If the buffer-local `dnote--book' is non-nil no read is done and
+its value is returned."
+  (or dnote--book (completing-read "Book: " (dnote--books))))
+
 ;;;###autoload
 (defun dnote-quick-add (book content)
   "Quickly add CONTENT to BOOK.
 
 This command is designed to very quickly add a one-liner to dnote."
   (interactive
-   (let* ((book (completing-read "Book: " (dnote--books)))
+   (let* ((book (dnote--read-book))
           (text (read-string
                  (format "Text (for %s): " book)
                  (when (use-region-p) (buffer-substring-no-properties (region-beginning) (region-end))))))
      (list book text)))
   (dnote--add book content)
   (message "Note added to book \"%s\"." book))
+
+;;;###autoload
+(defun dnote-add-current-buffer (book)
+  "Add the content of the current buffer to BOOK."
+  (interactive (list (dnote--read-book)))
+  (dnote--add book (buffer-substring-no-properties (point-min) (point-max)))
+  ;; If this is a dnote-mode buffer make the (currently, given my design
+  ;; requirement) safe assumption that we can kill the buffer now that we've
+  ;; saved it.
+  (when (derived-mode-p 'dnote-mode)
+    (kill-buffer))
+  (message "Saved as a note in \"%s\"." book))
+
+(defvar dnote-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "C-c C-c") #'dnote-add-current-buffer)
+    map)
+  "Mode map for `dnote-mode'.")
+
+;;;###autoload
+(define-derived-mode dnote-mode text-mode "dnote")
+
+;;;###autoload
+(defun dnote-add (book)
+  "Write a note and add it to BOOK."
+  (interactive (list (dnote--read-book)))
+  (with-current-buffer (pop-to-buffer (format "*dnote add: %s*" book))
+    (dnote-mode)
+    (setq dnote--book book)))
 
 (provide 'dnote)
 
