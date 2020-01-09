@@ -81,7 +81,10 @@ its value is returned."
 (defun dnote-quick-add (book content)
   "Quickly add CONTENT to BOOK.
 
-This command is designed to very quickly add a one-liner to dnote."
+This command is designed to very quickly add a one-liner to dnote.
+
+Note that if `use-region-p' returns t, CONTENT will default to
+the content of that region."
   (interactive
    (let* ((book (dnote--read-book))
           (text (read-string
