@@ -5,7 +5,7 @@
 ;; Version: 0.01
 ;; Keywords: docs
 ;; URL: https://github.com/davep/dnote.el
-;; Package-Requires: ((emacs "24.3"))
+;; Package-Requires: ((emacs "24.3") markdown-mode)
 
 ;; This program is free software: you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the
@@ -28,6 +28,7 @@
 ;;; Code:
 
 (require 'browse-url)
+(require 'markdown-mode)
 
 (defgroup dnote nil
   "Wrapper for the dnote CLI."
@@ -109,7 +110,7 @@ This command is designed to very quickly add a one-liner to dnote."
   "Mode map for `dnote-mode'.")
 
 ;;;###autoload
-(define-derived-mode dnote-mode text-mode "dnote"
+(define-derived-mode dnote-mode markdown-mode "dnote"
   "Major mode for editing a dnote note.")
 
 ;;;###autoload
