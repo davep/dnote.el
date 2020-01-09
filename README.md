@@ -13,7 +13,8 @@ Available commands are:
 ### dnote-quick-add
 
 Quickly add a note to dnote, prompting for the book and also the note
-content. This is intended for quick one-liners.
+content. This is intended for quick one-liners. If there is a selection in
+place the content will default to the selection.
 
 ### dnote-add-current-buffer
 
