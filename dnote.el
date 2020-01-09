@@ -126,6 +126,13 @@ This command is designed to very quickly add a one-liner to dnote."
   (interactive)
   (browse-url dnote-app-url))
 
+;;;###autoload
+(defun dnote-sync ()
+  "Perform a sync of dnote notes."
+  (interactive)
+  (with-help-window "*dnote sync*"
+    (princ (dnote--cmd "sync"))))
+
 (provide 'dnote)
 
 ;;; dnote.el ends here
