@@ -114,7 +114,11 @@ the content of that region."
 
 ;;;###autoload
 (define-derived-mode dnote-mode markdown-mode "dnote"
-  "Major mode for editing a dnote note.")
+  "Major mode for editing a dnote note.
+
+The key bindings for `dnote-mode' are:
+
+\\{dnote-mode-map}")
 
 ;;;###autoload
 (defun dnote-add (book)
