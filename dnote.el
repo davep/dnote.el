@@ -68,7 +68,8 @@
 
 (defun dnote--add (book content)
   "Add CONTENT to BOOK in dnote."
-  (dnote--cmd (format "add %s --content %s" book (shell-quote-argument content))))
+  (dnote--cmd
+   (format "add %s --content %s" (shell-quote-argument book) (shell-quote-argument content))))
 
 (defun dnote--read-book ()
   "Prompt the user for a dnote book name.
